@@ -11,10 +11,14 @@ import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.Image;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.Random;
 import java.util.Scanner;
+import java.util.Timer;
+import java.util.TimerTask;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
@@ -29,7 +33,7 @@ import javax.swing.border.LineBorder;
  *
  * @author peralta.laura
  */
-public class Jokua extends JFrame implements MouseListener {
+public class Jokua extends JFrame implements MouseListener, ActionListener {
 
     private final JPanel panelOsoa;
     private JPanel goikoPanela;
@@ -47,12 +51,15 @@ public class Jokua extends JFrame implements MouseListener {
     private ImageIcon jolasten;
     private ImageIcon hilda;
     private ImageIcon bandera;
-    private JButton jolastenDago;
+    private JButton jolastenBotoia;
+    private boolean jolastenDago;
     private JLabel jolastutakoDenbora;
+    private final Timer denbora = new Timer();
 
     public Jokua(int tamaina) {
         panelOsoa = new JPanel();
         panelOsoa.setLayout(new BoxLayout(panelOsoa, BoxLayout.Y_AXIS));
+        setLocationRelativeTo(null);
         add(panelOsoa);
         setTitle("BUSCAMINAS");
         setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -65,7 +72,6 @@ public class Jokua extends JFrame implements MouseListener {
         hasi();
         setVisible(true);
         setSize(tamaina * KARRATU_TAMAINA, tamaina * KARRATU_TAMAINA + 50);
-
     }
 
     public void hasi() {
@@ -80,14 +86,15 @@ public class Jokua extends JFrame implements MouseListener {
         banderaFalta = new JLabel("" + banderaFaltaKop);
         goikoPanela.add(banderaFalta);
 
-        jolastenDago = new JButton(jolasten);
-        jolastenDago.setPreferredSize(new Dimension(this.KARRATU_TAMAINA + 10, this.KARRATU_TAMAINA + 10));
-        jolastenDago.setMaximumSize(new Dimension(this.KARRATU_TAMAINA + 10, this.KARRATU_TAMAINA + 10));
-        jolastenDago.setBorderPainted(true);
-        jolastenDago.setName("jolasten");
+        jolastenBotoia = new JButton(jolasten);
+        jolastenBotoia.setPreferredSize(new Dimension(this.KARRATU_TAMAINA + 10, this.KARRATU_TAMAINA + 10));
+        jolastenBotoia.setMaximumSize(new Dimension(this.KARRATU_TAMAINA + 10, this.KARRATU_TAMAINA + 10));
+        jolastenBotoia.setBorderPainted(true);
+        jolastenBotoia.setName("jolasten");
         goikoPanela.add(Box.createRigidArea(new Dimension((tamaina - 1) * 15 - 95, 50)));
-        goikoPanela.add(jolastenDago, BorderLayout.PAGE_START); //indica que el juego está funcionando
+        goikoPanela.add(jolastenBotoia, BorderLayout.PAGE_START); //indica que el juego está funcionando
         goikoPanela.add(Box.createRigidArea(new Dimension((tamaina - 1) * 15 - 85, 50)));
+        jolastenBotoia.addActionListener(this);
         //panelSuperior.add(numeroBanderas); indica el número de banderas puestas
 
         JLabel tiempo = new JLabel("Tiempo ");
@@ -207,17 +214,21 @@ public class Jokua extends JFrame implements MouseListener {
 
                 }
                 botoiak[x][y].setBackground(Color.RED);
-                jolastenDago.setIcon(hilda);
+                jolastenBotoia.setIcon(hilda);
+                jolastenDago = false;
                 JOptionPane.showMessageDialog(rootPane, "GALDU DUZU :'(");
                 System.exit(0);
                 break;
 
                 case 0:
+
                     botoiak[x][y].setBackground(Color.lightGray);
                     erakutsita[x][y] = true;
                     erakutsitaKop++;
-
-                    
+                    if (erakutsitaKop == 1) {
+                        jolastenDago = true;
+                        kontatu();
+                    }
 
                     for (int i = -1; i <= 1; i++) {
                         for (int j = -1; j <= 1; j++) {
@@ -228,9 +239,10 @@ public class Jokua extends JFrame implements MouseListener {
                             }
                         }
                         if (irabaziDuzu()) {
-                        JOptionPane.showMessageDialog(rootPane, "IRABAZI DUZU!!");
-                        System.exit(0);
-                    }
+                            jolastenDago = false;
+                            JOptionPane.showMessageDialog(rootPane, "IRABAZI DUZU!!");
+                            System.exit(0);
+                        }
 
                     }
                     break;
@@ -239,8 +251,12 @@ public class Jokua extends JFrame implements MouseListener {
                     botoiak[x][y].setBackground(Color.LIGHT_GRAY);
                     erakutsita[x][y] = true;
                     erakutsitaKop++;
-
+                    if (erakutsitaKop == 1) {
+                        jolastenDago = true;
+                        kontatu();
+                    }
                     if (irabaziDuzu()) {
+                        jolastenDago = false;
                         JOptionPane.showMessageDialog(rootPane, "IRABAZI DUZU!!");
                         System.exit(0);
                     }
@@ -272,6 +288,21 @@ public class Jokua extends JFrame implements MouseListener {
 
     public boolean irabaziDuzu() {
         return erakutsitaKop == Math.pow(tamaina, 2) - tamaina;
+    }
+
+    public void kontatu() {
+        TimerTask task = new TimerTask() {
+            int t = 0;
+
+            @Override
+            public void run() {
+                if (jolastenDago) {
+                    jolastutakoDenbora.setText("" + t++);
+                }
+            }
+        };
+        denbora.schedule(task, 0, 1000);
+
     }
 
     public static void main(String[] args) {
@@ -314,5 +345,20 @@ public class Jokua extends JFrame implements MouseListener {
     @Override
     public void mouseExited(MouseEvent e) {
 
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        Object eventSource = e.getSource();
+        JButton klikatutakoBotoia = (JButton) eventSource;
+        String izena = klikatutakoBotoia.getName();
+        if (klikatutakoBotoia == jolastenBotoia) {
+            if (jolastenDago) {
+                jolastenDago = false;
+
+            } else {
+                jolastenDago = true;
+            }
+        }
     }
 }

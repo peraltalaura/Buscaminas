@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package jolasa;
+package model;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -16,7 +16,6 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.Random;
-import java.util.Scanner;
 import java.util.Timer;
 import java.util.TimerTask;
 import javax.swing.Box;
@@ -57,11 +56,14 @@ public class Jokua extends JFrame implements MouseListener, ActionListener {
     private final Timer denbora = new Timer();
 
     public Jokua(int tamaina) {
+
         panelOsoa = new JPanel();
         panelOsoa.setLayout(new BoxLayout(panelOsoa, BoxLayout.Y_AXIS));
-        setLocationRelativeTo(null);
         add(panelOsoa);
         setTitle("BUSCAMINAS");
+        setSize(tamaina * KARRATU_TAMAINA, tamaina * KARRATU_TAMAINA + 50);
+        setLocationRelativeTo(null);
+        setAlwaysOnTop(true);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         this.tamaina = tamaina;
         banderaFaltaKop = tamaina;
@@ -71,7 +73,6 @@ public class Jokua extends JFrame implements MouseListener, ActionListener {
         initErakutsitakoak();
         hasi();
         setVisible(true);
-        setSize(tamaina * KARRATU_TAMAINA, tamaina * KARRATU_TAMAINA + 50);
     }
 
     public void hasi() {
@@ -181,7 +182,7 @@ public class Jokua extends JFrame implements MouseListener, ActionListener {
     }
 
     public void irudiakSortu() {
-        mina = new ImageIcon("src/irudiak/mine.png");
+        mina = new ImageIcon("src/irudiak/covid.png");
         Image minaIrudi = mina.getImage();
         Image minaNeurri = minaIrudi.getScaledInstance(20, 20, java.awt.Image.SCALE_SMOOTH);
         mina = new ImageIcon(minaNeurri);
@@ -196,7 +197,7 @@ public class Jokua extends JFrame implements MouseListener, ActionListener {
         Image hildaNeurri = hildaIrudi.getScaledInstance(this.KARRATU_TAMAINA, this.KARRATU_TAMAINA, java.awt.Image.SCALE_SMOOTH);
         hilda = new ImageIcon(hildaNeurri);
 
-        bandera = new ImageIcon("src/irudiak/flag.png");
+        bandera = new ImageIcon("src/irudiak/spray.png");
         Image banderaIrudi = bandera.getImage();
         Image banderaNeurri = banderaIrudi.getScaledInstance(20, 20, java.awt.Image.SCALE_SMOOTH);
         bandera = new ImageIcon(banderaNeurri);
@@ -205,7 +206,6 @@ public class Jokua extends JFrame implements MouseListener, ActionListener {
     public void botoiaKlikatuta(int x, int y) {
         if (!erakutsita[x][y] && !banderaJarrita[x][y]) {
             erakutsita[x][y] = true;
-
             switch (zelaia[x][y]) {
                 case -1:
                     try {
@@ -216,12 +216,11 @@ public class Jokua extends JFrame implements MouseListener, ActionListener {
                 botoiak[x][y].setBackground(Color.RED);
                 jolastenBotoia.setIcon(hilda);
                 jolastenDago = false;
-                JOptionPane.showMessageDialog(rootPane, "GALDU DUZU :'(");
+                JOptionPane.showMessageDialog(rootPane, "KUTSATU ZARA, 10 EGUN ETXEAN :'(");
                 System.exit(0);
                 break;
 
                 case 0:
-
                     botoiak[x][y].setBackground(Color.lightGray);
                     erakutsita[x][y] = true;
                     erakutsitaKop++;
@@ -305,16 +304,9 @@ public class Jokua extends JFrame implements MouseListener, ActionListener {
 
     }
 
-    public static void main(String[] args) {
-        Scanner in = new Scanner(System.in);
-        System.out.println("Sartu ilara kopurua:");
-        int tamaina = in.nextInt();
-        Jokua j = new Jokua(tamaina);
-    }
-
     @Override
     public void mouseClicked(MouseEvent em) {
-        if ((erakutsitaKop > 0 && jolastenDago)|| erakutsitaKop==0) {
+        if ((erakutsitaKop > 0 && jolastenDago) || erakutsitaKop == 0) {
             Object eventSource = em.getSource();
             JButton klikatutakoBotoia = (JButton) eventSource;
             String[] xy = klikatutakoBotoia.getName().split(" ", 2);
@@ -353,7 +345,6 @@ public class Jokua extends JFrame implements MouseListener, ActionListener {
     public void actionPerformed(ActionEvent e) {
         Object eventSource = e.getSource();
         JButton klikatutakoBotoia = (JButton) eventSource;
-        String izena = klikatutakoBotoia.getName();
         if (klikatutakoBotoia == jolastenBotoia) {
             jolastenDago = !jolastenDago;
         }

@@ -3,13 +3,14 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package jolasa;
+package model;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JPanel;
 
 /**
  *
@@ -17,21 +18,30 @@ import javax.swing.JLabel;
  */
 public class Hasiera extends JFrame implements ActionListener {
 
+    private JPanel menua;
     private int tamaina;
     private JButton hasiJolasten;
     private JButton tamainaAldatu;
     private JButton irten;
     private JLabel titulua;
-    
-    public Hasiera(){
-        
+
+    public Hasiera() {
+        initPanel();
     }
-    public void initPanel(){
-        
+
+    public void initPanel() {
+        menua = new JPanel();
+        add(menua);
+        setTitle("MENUA");
+        setSize(500, 500);
+        setLocationRelativeTo(null);
+        setAlwaysOnTop(true);
+        setDefaultCloseOperation(EXIT_ON_CLOSE);
+        setVisible(true);
     }
-    
+
     @Override
     public void actionPerformed(ActionEvent e) {
     }
-    
+
 }

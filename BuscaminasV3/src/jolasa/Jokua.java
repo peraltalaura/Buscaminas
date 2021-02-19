@@ -314,15 +314,17 @@ public class Jokua extends JFrame implements MouseListener, ActionListener {
 
     @Override
     public void mouseClicked(MouseEvent em) {
-        Object eventSource = em.getSource();
-        JButton klikatutakoBotoia = (JButton) eventSource;
-        String[] xy = klikatutakoBotoia.getName().split(" ", 2);
-        int x = Integer.parseInt(xy[0]);
-        int y = Integer.parseInt(xy[1]);
-        if (em.getButton() == MouseEvent.BUTTON3) {
-            eskubikoBotoiaKlikatuta(x, y);
-        } else {
-            botoiaKlikatuta(x, y);
+        if ((erakutsitaKop > 0 && jolastenDago)|| erakutsitaKop==0) {
+            Object eventSource = em.getSource();
+            JButton klikatutakoBotoia = (JButton) eventSource;
+            String[] xy = klikatutakoBotoia.getName().split(" ", 2);
+            int x = Integer.parseInt(xy[0]);
+            int y = Integer.parseInt(xy[1]);
+            if (em.getButton() == MouseEvent.BUTTON3) {
+                eskubikoBotoiaKlikatuta(x, y);
+            } else {
+                botoiaKlikatuta(x, y);
+            }
         }
 
     }
@@ -353,12 +355,7 @@ public class Jokua extends JFrame implements MouseListener, ActionListener {
         JButton klikatutakoBotoia = (JButton) eventSource;
         String izena = klikatutakoBotoia.getName();
         if (klikatutakoBotoia == jolastenBotoia) {
-            if (jolastenDago) {
-                jolastenDago = false;
-
-            } else {
-                jolastenDago = true;
-            }
+            jolastenDago = !jolastenDago;
         }
     }
 }

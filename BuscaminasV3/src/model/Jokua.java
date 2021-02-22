@@ -80,7 +80,7 @@ public class Jokua extends JFrame implements MouseListener, ActionListener {
         goikoPanela.setLayout(new BoxLayout(goikoPanela, BoxLayout.X_AXIS));
         goikoPanela.setVisible(true);
 
-        JLabel banderaTitulua = new JLabel("Hidroalkoholak ");
+        JLabel banderaTitulua = new JLabel("Spray-ak: ");
         banderaTitulua.setAlignmentX(Component.LEFT_ALIGNMENT);
         banderaTitulua.setHorizontalAlignment(JLabel.LEFT);
         goikoPanela.add(banderaTitulua);

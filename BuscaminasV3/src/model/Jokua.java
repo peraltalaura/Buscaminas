@@ -98,7 +98,7 @@ public class Jokua extends JFrame implements MouseListener, ActionListener {
         jolastenBotoia.addActionListener(this);
         //panelSuperior.add(numeroBanderas); indica el número de banderas puestas
 
-        JLabel tiempo = new JLabel("Denbora ");
+        JLabel tiempo = new JLabel("Denbora: ");
         goikoPanela.add(tiempo);
         jolastutakoDenbora = new JLabel("0");
         tiempo.setAlignmentX(Component.RIGHT_ALIGNMENT);

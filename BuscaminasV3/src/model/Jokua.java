@@ -80,7 +80,7 @@ public class Jokua extends JFrame implements MouseListener, ActionListener {
         goikoPanela.setLayout(new BoxLayout(goikoPanela, BoxLayout.X_AXIS));
         goikoPanela.setVisible(true);
 
-        JLabel banderaTitulua = new JLabel("Banderak ");
+        JLabel banderaTitulua = new JLabel("Hidroalkoholak ");
         banderaTitulua.setAlignmentX(Component.LEFT_ALIGNMENT);
         banderaTitulua.setHorizontalAlignment(JLabel.LEFT);
         goikoPanela.add(banderaTitulua);
@@ -98,7 +98,7 @@ public class Jokua extends JFrame implements MouseListener, ActionListener {
         jolastenBotoia.addActionListener(this);
         //panelSuperior.add(numeroBanderas); indica el número de banderas puestas
 
-        JLabel tiempo = new JLabel("Tiempo ");
+        JLabel tiempo = new JLabel("Denbora ");
         goikoPanela.add(tiempo);
         jolastutakoDenbora = new JLabel("0");
         tiempo.setAlignmentX(Component.RIGHT_ALIGNMENT);
@@ -239,7 +239,7 @@ public class Jokua extends JFrame implements MouseListener, ActionListener {
                         }
                         if (irabaziDuzu()) {
                             jolastenDago = false;
-                            JOptionPane.showMessageDialog(rootPane, "IRABAZI DUZU!!");
+                            JOptionPane.showMessageDialog(rootPane, "ZORIONAK KALERA IRTETEN JARRAITU AHAL DUZU!!");
                             System.exit(0);
                         }
 
@@ -256,7 +256,7 @@ public class Jokua extends JFrame implements MouseListener, ActionListener {
                     }
                     if (irabaziDuzu()) {
                         jolastenDago = false;
-                        JOptionPane.showMessageDialog(rootPane, "IRABAZI DUZU!!");
+                        JOptionPane.showMessageDialog(rootPane, "ZORIONAK KALERA IRTETEN JARRAITU AHAL DUZU!!");
                         System.exit(0);
                     }
                     break;

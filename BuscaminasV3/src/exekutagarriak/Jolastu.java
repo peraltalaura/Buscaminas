@@ -13,7 +13,7 @@ import model.Hasiera;
  */
 public class Jolastu {
 
-    /**
+    /** Hasierako menu bat sortzen du
      * @param args the command line arguments
      */
     public static void main(String[] args) {

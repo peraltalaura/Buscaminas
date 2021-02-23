@@ -14,7 +14,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 /**
- *
+ * Jokua irekitzean agertzen den menua eta bere akzioak sortzen ditu
  * @author peralta.laura
  */
 public class Hasiera extends JFrame implements ActionListener {
@@ -29,11 +29,17 @@ public class Hasiera extends JFrame implements ActionListener {
     private JButton aldatu;
     private JFrame frame;
 
+    /**
+     * Hasiera konstruktorea, initPanel() eta initMenua() metodoei deitzen die
+     */
     public Hasiera() {
         initPanel();
         initMenua();
     }
 
+    /**
+     * jokuaren menuko panela sortzen duen metodoa
+     */
     public void initPanel() {
         menua = new JPanel();
         add(menua);
@@ -45,6 +51,9 @@ public class Hasiera extends JFrame implements ActionListener {
         setVisible(true);
     }
 
+    /**
+     * menuko panelaren barruan egongo diren elementuak sortzen dituen metodoa
+     */
     public void initMenua() {
         titulua = new JLabel();
         titulua.setText("COVID-19 BILATU");
@@ -67,6 +76,9 @@ public class Hasiera extends JFrame implements ActionListener {
         menua.add(irten);
     }
 
+    /**
+     * Aldatu botoian klikatzean irekitzen den menua sortzen du
+     */
     public void tamainaAldatu() {
         frame = new JFrame();
         frame.setSize(500, 250);
@@ -87,13 +99,17 @@ public class Hasiera extends JFrame implements ActionListener {
         frame.setAlwaysOnTop(true);
         frame.setVisible(true);
     }
-
+    
+    /**
+     * botoiei klikatzean gertatzen diren akzioak
+     * @param e klikatzen den elementua hartzen du
+     */
     @Override
     public void actionPerformed(ActionEvent e) {
         Object eventSource = e.getSource();
         JButton klikatutakoBotoia = (JButton) eventSource;
         if (klikatutakoBotoia == hasiJolasten) {
-            Jokua j = new Jokua(tamaina);
+            Jokua j = new Jokua(tamaina); //joku berri bat sortzen du emandako tamainarekin
             this.setVisible(false);
         } else if (klikatutakoBotoia == tamainaAldatu) {
             tamainaAldatu();

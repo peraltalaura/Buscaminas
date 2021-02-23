@@ -54,7 +54,11 @@ public class Jokua extends JFrame implements MouseListener, ActionListener {
     private boolean jolastenDago;
     private JLabel jolastutakoDenbora;
     private final Timer denbora = new Timer();
-
+  
+    /**
+     * Jokua klasearen konstruktorea da eta Jokua sortzen du tamaina bat sartzen
+     * @param tamaina jolasa sortuko den tamaina
+     */
     public Jokua(int tamaina) {
 
         panelOsoa = new JPanel();
@@ -75,6 +79,10 @@ public class Jokua extends JFrame implements MouseListener, ActionListener {
         setVisible(true);
     }
 
+    /**
+     * Jokuaren panelosoan egongo diren elementuak sortzen ditu, goiko panel bat datuekin eta
+     * beheko panel bat jolasteko
+     */
     public void hasi() {
         goikoPanela = new JPanel();
         goikoPanela.setLayout(new BoxLayout(goikoPanela, BoxLayout.X_AXIS));
@@ -128,6 +136,9 @@ public class Jokua extends JFrame implements MouseListener, ActionListener {
 
     }
 
+    /**
+     * beheko panelean egongo diren botoien datuak sortzen ditu
+     */
     public void zelaiaBete() {
         Random ausazkoa = new Random();
 
@@ -170,6 +181,9 @@ public class Jokua extends JFrame implements MouseListener, ActionListener {
         }
     }
 
+    /**
+     * zein botoi klikatuta dauden eta bandera jarri den jakiteko
+     */
     public void initErakutsitakoak() {
         erakutsita = new boolean[tamaina][tamaina];
         banderaJarrita = new boolean[tamaina][tamaina];
@@ -181,6 +195,9 @@ public class Jokua extends JFrame implements MouseListener, ActionListener {
         }
     }
 
+    /**
+     * jokuan ikusiko diren irudiak sortuko ditu
+     */
     public void irudiakSortu() {
         mina = new ImageIcon("src/irudiak/covid.png");
         Image minaIrudi = mina.getImage();
@@ -203,6 +220,11 @@ public class Jokua extends JFrame implements MouseListener, ActionListener {
         bandera = new ImageIcon(banderaNeurri);
     }
 
+    /**
+     * botoi bat klikatzean zer gertatzen den
+     * @param x botoiaren kokapena arrayean
+     * @param y botoiaren kokapena arrayean
+     */
     public void botoiaKlikatuta(int x, int y) {
         if (!erakutsita[x][y] && !banderaJarrita[x][y]) {
             erakutsita[x][y] = true;
@@ -265,6 +287,11 @@ public class Jokua extends JFrame implements MouseListener, ActionListener {
         }
     }
 
+    /**
+     * eskubiko botoia, bandera jartzeko, klikatzean gertatzen dena
+     * @param x botoiaren kokapena arrayean
+     * @param y botoiaren kokapena arrayean
+     */
     public void eskubikoBotoiaKlikatuta(int x, int y) {
         if (!erakutsita[x][y]) {
             if (banderaJarrita[x][y]) {
@@ -285,10 +312,17 @@ public class Jokua extends JFrame implements MouseListener, ActionListener {
         }
     }
 
+    /**
+     * irabazteko bete behar den baldintza
+     * @return irabazteko baldintza betetzen den ala ez
+     */
     public boolean irabaziDuzu() {
         return erakutsitaKop == Math.pow(tamaina, 2) - tamaina;
     }
 
+    /**
+     * jolastutako denbora kontatzen du
+     */
     public void kontatu() {
         TimerTask task = new TimerTask() {
             int t = 0;
@@ -304,6 +338,10 @@ public class Jokua extends JFrame implements MouseListener, ActionListener {
 
     }
 
+    /**
+     * botoi bat klikatzen denean zer gertatzen den 
+     * @param em zer botoi klikatu den jakiteko eta akzioa kontrolatzeko
+     */
     @Override
     public void mouseClicked(MouseEvent em) {
         if ((erakutsitaKop > 0 && jolastenDago) || erakutsitaKop == 0) {
@@ -340,7 +378,10 @@ public class Jokua extends JFrame implements MouseListener, ActionListener {
     public void mouseExited(MouseEvent e) {
 
     }
-
+    /**
+     * botoi bat klikatzen denean zer gertatzen den 
+     * @param e zer botoi klikatu den jakiteko eta akzioa kontrolatzeko
+     */
     @Override
     public void actionPerformed(ActionEvent e) {
         Object eventSource = e.getSource();

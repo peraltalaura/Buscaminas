@@ -140,8 +140,7 @@ public class Hasiera extends JFrame implements ActionListener {
         if (klikatutakoBotoia == hasiJolasten) {
             Jokua j = new Jokua(tamaina); //joku berri bat sortzen du emandako tamainarekin
             this.setVisible(false);
-           
-        } else if (klikatutakoBotoia == tamainaAldatu && frame==null) {
+        } else if (klikatutakoBotoia == tamainaAldatu && (frame==null || frame.isVisible()==false)) {
             this.setVisible(false);
             tamainaAldatu();
         } else if (klikatutakoBotoia == aldatu) {

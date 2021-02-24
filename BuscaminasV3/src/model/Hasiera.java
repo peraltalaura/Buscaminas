@@ -5,6 +5,8 @@
  */
 package model;
 
+import java.awt.Color;
+import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JButton;
@@ -15,6 +17,7 @@ import javax.swing.JTextField;
 
 /**
  * Jokua irekitzean agertzen den menua eta bere akzioak sortzen ditu
+ *
  * @author peralta.laura
  */
 public class Hasiera extends JFrame implements ActionListener {
@@ -28,6 +31,8 @@ public class Hasiera extends JFrame implements ActionListener {
     private JTextField tamainaBerria;
     private JButton aldatu;
     private JFrame frame;
+    private JLabel baloreaGaizki;
+    private JLabel zelaiTamaina;
 
     /**
      * Hasiera konstruktorea, initPanel() eta initMenua() metodoei deitzen die
@@ -55,25 +60,39 @@ public class Hasiera extends JFrame implements ActionListener {
      * menuko panelaren barruan egongo diren elementuak sortzen dituen metodoa
      */
     public void initMenua() {
+        Color darkGreen = new Color(0, 102, 0);
         titulua = new JLabel();
         titulua.setText("COVID-19 BILATU");
-        titulua.setBounds(200, 25, 100, 50);
+        titulua.setFont(new Font("Arial", Font.BOLD, 22));
+        titulua.setForeground(darkGreen);
+        titulua.setBounds(150, 25, 300, 50);
         menua.add(titulua);
         hasiJolasten = new JButton("JOLASTU");
+        hasiJolasten.setFont(new Font("Arial", Font.BOLD, 14));
         hasiJolasten.setSize(100, 50);
         hasiJolasten.setLocation(200, 100);
         hasiJolasten.addActionListener(this);
         menua.add(hasiJolasten);
         tamainaAldatu = new JButton("TAMAINA ALDATU");
+        tamainaAldatu.setFont(new Font("Arial", Font.BOLD, 14));
         tamainaAldatu.setSize(200, 50);
         tamainaAldatu.setLocation(150, 200);
         tamainaAldatu.addActionListener(this);
         menua.add(tamainaAldatu);
         irten = new JButton("IRTEN");
+        irten.setFont(new Font("Arial", Font.BOLD, 14));
         irten.setSize(100, 50);
         irten.setLocation(200, 300);
         irten.addActionListener(this);
         menua.add(irten);
+        JLabel aukeratutakoTamaina = new JLabel("JOLASAREN TAMAINA: ");
+        aukeratutakoTamaina.setFont(new Font("Arial", Font.BOLD, 14));
+        aukeratutakoTamaina.setBounds(150, 375, 175, 50);
+        menua.add(aukeratutakoTamaina);
+        zelaiTamaina = new JLabel("" + tamaina);
+        zelaiTamaina.setFont(new Font("Arial", Font.BOLD, 14));
+        zelaiTamaina.setBounds(310, 375, 100, 50);
+        menua.add(zelaiTamaina);
     }
 
     /**
@@ -83,14 +102,23 @@ public class Hasiera extends JFrame implements ActionListener {
         frame = new JFrame();
         frame.setSize(500, 250);
         frame.setLayout(null);
+        baloreaGaizki = new JLabel("TAMAINAREN BALIOA 8-25 IZAN BEHAR DA!");
+        baloreaGaizki.setFont(new Font("Arial", Font.BOLD, 14));
+        baloreaGaizki.setForeground(Color.red);
+        baloreaGaizki.setBounds(100, 15, 300, 50);
+        baloreaGaizki.setVisible(false);
+        frame.add(baloreaGaizki);
         JLabel testua = new JLabel("SARTU TAMAINA: ");
-        testua.setBounds(150, 50, 100, 50);
+        testua.setFont(new Font("Arial", Font.BOLD, 14));
+        testua.setBounds(125, 50, 150, 50);
         frame.add(testua);
         tamainaBerria = new JTextField();
+        tamainaBerria.setFont(new Font("Arial", Font.PLAIN, 14));
         tamainaBerria.setSize(50, 25);
         tamainaBerria.setLocation(260, 65);
         frame.add(tamainaBerria);
         aldatu = new JButton("ALDATU");
+        aldatu.setFont(new Font("Arial", Font.BOLD, 14));
         aldatu.addActionListener(this);
         aldatu.setSize(100, 30);
         aldatu.setLocation(200, 125);
@@ -99,9 +127,10 @@ public class Hasiera extends JFrame implements ActionListener {
         frame.setAlwaysOnTop(true);
         frame.setVisible(true);
     }
-    
+
     /**
      * botoiei klikatzean gertatzen diren akzioak
+     *
      * @param e klikatzen den elementua hartzen du
      */
     @Override
@@ -114,9 +143,18 @@ public class Hasiera extends JFrame implements ActionListener {
         } else if (klikatutakoBotoia == tamainaAldatu) {
             tamainaAldatu();
         } else if (klikatutakoBotoia == aldatu) {
-            tamaina = Integer.parseInt(tamainaBerria.getText());
-            frame.setVisible(false);
-            menua.setVisible(true);
+            try {
+                if (!(Integer.parseInt(tamainaBerria.getText()) >= 8 && Integer.parseInt(tamainaBerria.getText()) <= 25)) {
+                    baloreaGaizki.setVisible(true);
+                } else {
+                    tamaina = Integer.parseInt(tamainaBerria.getText());
+                    zelaiTamaina.setText("" + tamaina);
+                    frame.setVisible(false);
+                    menua.setVisible(true);
+                }
+            } catch (NumberFormatException x) {
+                baloreaGaizki.setVisible(true);
+            }
         } else if (klikatutakoBotoia == irten) {
             System.exit(0);
         }

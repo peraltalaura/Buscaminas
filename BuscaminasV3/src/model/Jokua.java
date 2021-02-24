@@ -64,7 +64,7 @@ public class Jokua extends JFrame implements MouseListener, ActionListener {
         panelOsoa = new JPanel();
         panelOsoa.setLayout(new BoxLayout(panelOsoa, BoxLayout.Y_AXIS));
         add(panelOsoa);
-        setTitle("BUSCAMINAS");
+        setTitle("COVID-19 BILATU");
         setSize(tamaina * KARRATU_TAMAINA, tamaina * KARRATU_TAMAINA + 50);
         setLocationRelativeTo(null);
         setAlwaysOnTop(true);
@@ -239,7 +239,8 @@ public class Jokua extends JFrame implements MouseListener, ActionListener {
                 jolastenBotoia.setIcon(hilda);
                 jolastenDago = false;
                 JOptionPane.showMessageDialog(rootPane, "KUTSATU ZARA, 10 EGUN ETXEAN :'(");
-                System.exit(0);
+                setVisible(false);
+                Hasiera h=new Hasiera();
                 break;
 
                 case 0:
@@ -262,7 +263,9 @@ public class Jokua extends JFrame implements MouseListener, ActionListener {
                         if (irabaziDuzu()) {
                             jolastenDago = false;
                             JOptionPane.showMessageDialog(rootPane, "ZORIONAK KALERA IRTETEN JARRAITU AHAL DUZU!!");
-                            System.exit(0);
+                            setVisible(false);
+                            Hasiera ha=new Hasiera();
+                            break;
                         }
 
                     }
@@ -279,7 +282,9 @@ public class Jokua extends JFrame implements MouseListener, ActionListener {
                     if (irabaziDuzu()) {
                         jolastenDago = false;
                         JOptionPane.showMessageDialog(rootPane, "ZORIONAK KALERA IRTETEN JARRAITU AHAL DUZU!!");
-                        System.exit(0);
+                        setVisible(false);
+                        Hasiera ha=new Hasiera();
+                        break;
                     }
                     break;
             }

@@ -140,7 +140,9 @@ public class Hasiera extends JFrame implements ActionListener {
         if (klikatutakoBotoia == hasiJolasten) {
             Jokua j = new Jokua(tamaina); //joku berri bat sortzen du emandako tamainarekin
             this.setVisible(false);
-        } else if (klikatutakoBotoia == tamainaAldatu) {
+           
+        } else if (klikatutakoBotoia == tamainaAldatu && frame==null) {
+            this.setVisible(false);
             tamainaAldatu();
         } else if (klikatutakoBotoia == aldatu) {
             try {
@@ -150,7 +152,7 @@ public class Hasiera extends JFrame implements ActionListener {
                     tamaina = Integer.parseInt(tamainaBerria.getText());
                     zelaiTamaina.setText("" + tamaina);
                     frame.setVisible(false);
-                    menua.setVisible(true);
+                    this.setVisible(true);
                 }
             } catch (NumberFormatException x) {
                 baloreaGaizki.setVisible(true);

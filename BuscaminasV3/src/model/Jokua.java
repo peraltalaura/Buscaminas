@@ -68,7 +68,6 @@ public class Jokua extends JFrame implements MouseListener, ActionListener {
         setSize(tamaina * KARRATU_TAMAINA, tamaina * KARRATU_TAMAINA + 50);
         setLocationRelativeTo(null);
         setAlwaysOnTop(true);
-        setDefaultCloseOperation(EXIT_ON_CLOSE);
         this.tamaina = tamaina;
         banderaFaltaKop = tamaina;
         erakutsitaKop = 0;

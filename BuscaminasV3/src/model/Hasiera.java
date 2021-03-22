@@ -13,6 +13,7 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JTable;
 import javax.swing.JTextField;
 
 /**
@@ -21,7 +22,7 @@ import javax.swing.JTextField;
  * @author peralta.laura
  */
 public class Hasiera extends JFrame implements ActionListener {
-
+    
     private JPanel menua;
     private int tamaina = 8;
     private JButton hasiJolasten;
@@ -33,6 +34,12 @@ public class Hasiera extends JFrame implements ActionListener {
     private JFrame frame;
     private JLabel baloreaGaizki;
     private JLabel zelaiTamaina;
+    private JFrame jokalaria;
+    private JButton izenaSartu;
+    private JButton jokalarienDenbora;
+    private JTextField izenaHartu;
+    private JFrame table;
+    private JButton itzuliMenura;
 
     /**
      * Hasiera konstruktorea, initPanel() eta initMenua() metodoei deitzen die
@@ -40,6 +47,7 @@ public class Hasiera extends JFrame implements ActionListener {
     public Hasiera() {
         initPanel();
         initMenua();
+        setDefaultCloseOperation(EXIT_ON_CLOSE);
     }
 
     /**
@@ -76,13 +84,19 @@ public class Hasiera extends JFrame implements ActionListener {
         tamainaAldatu = new JButton("TAMAINA ALDATU");
         tamainaAldatu.setFont(new Font("Arial", Font.BOLD, 14));
         tamainaAldatu.setSize(200, 50);
-        tamainaAldatu.setLocation(150, 200);
+        tamainaAldatu.setLocation(150, 175);
         tamainaAldatu.addActionListener(this);
         menua.add(tamainaAldatu);
+        jokalarienDenbora = new JButton("JOKALARIEN DENBORA");
+        jokalarienDenbora.setFont(new Font("Arial", Font.BOLD, 14));
+        jokalarienDenbora.setSize(200, 50);
+        jokalarienDenbora.setLocation(150, 250);
+        jokalarienDenbora.addActionListener(this);
+        menua.add(jokalarienDenbora);
         irten = new JButton("IRTEN");
         irten.setFont(new Font("Arial", Font.BOLD, 14));
         irten.setSize(100, 50);
-        irten.setLocation(200, 300);
+        irten.setLocation(200, 325);
         irten.addActionListener(this);
         menua.add(irten);
         JLabel aukeratutakoTamaina = new JLabel("JOLASAREN TAMAINA: ");
@@ -127,6 +141,48 @@ public class Hasiera extends JFrame implements ActionListener {
         frame.setAlwaysOnTop(true);
         frame.setVisible(true);
     }
+    
+    public void izenaSartu() {
+        jokalaria = new JFrame();
+        jokalaria.setSize(500, 250);
+        jokalaria.setLayout(null);
+        JLabel testua = new JLabel("SARTU ZURE IZENA: ");
+        testua.setFont(new Font("Arial", Font.BOLD, 14));
+        testua.setBounds(125, 50, 150, 50);
+        jokalaria.add(testua);
+        izenaHartu = new JTextField();
+        izenaHartu.setFont(new Font("Arial", Font.PLAIN, 14));
+        izenaHartu.setSize(100, 25);
+        izenaHartu.setLocation(260, 65);
+        jokalaria.add(izenaHartu);
+        izenaSartu = new JButton("SARTU");
+        izenaSartu.setFont(new Font("Arial", Font.BOLD, 14));
+        izenaSartu.addActionListener(this);
+        izenaSartu.setSize(100, 30);
+        izenaSartu.setLocation(200, 125);
+        jokalaria.add(izenaSartu);
+        jokalaria.setLocationRelativeTo(null);
+        jokalaria.setAlwaysOnTop(true);
+        jokalaria.setVisible(true);
+    }
+    
+    public void jokalariakIkusi() {
+        table = new JFrame();
+        table.setSize(500, 500);
+        table.setLayout(null);
+        JTable puntuazioa = new JTable(new JokalarienPuntuazioa());
+        puntuazioa.setSize(500, 400);
+        table.add(puntuazioa);
+        itzuliMenura = new JButton("ITZULI");
+        itzuliMenura.setFont(new Font("Arial", Font.BOLD, 14));
+        itzuliMenura.addActionListener(this);
+        itzuliMenura.setSize(100, 30);
+        itzuliMenura.setLocation(200, 400);
+        table.add(itzuliMenura);
+        table.setLocationRelativeTo(null);
+        table.setAlwaysOnTop(true);
+        table.setVisible(true);
+    }
 
     /**
      * botoiei klikatzean gertatzen diren akzioak
@@ -138,9 +194,13 @@ public class Hasiera extends JFrame implements ActionListener {
         Object eventSource = e.getSource();
         JButton klikatutakoBotoia = (JButton) eventSource;
         if (klikatutakoBotoia == hasiJolasten) {
-            Jokua j = new Jokua(tamaina); //joku berri bat sortzen du emandako tamainarekin
+            izenaSartu();//Eskatu erabiltzaileari bere izena
             this.setVisible(false);
-        } else if (klikatutakoBotoia == tamainaAldatu && (frame==null || frame.isVisible()==false)) {
+        } else if (klikatutakoBotoia == izenaSartu) {
+            Jokua j = new Jokua(tamaina); //joku berri bat sortzen du emandako tamainarekin
+            j.setIzena(izenaHartu.getText());
+            jokalaria.setVisible(false);
+        } else if (klikatutakoBotoia == tamainaAldatu && (frame == null || frame.isVisible() == false)) {
             this.setVisible(false);
             tamainaAldatu();
         } else if (klikatutakoBotoia == aldatu) {
@@ -156,9 +216,17 @@ public class Hasiera extends JFrame implements ActionListener {
             } catch (NumberFormatException x) {
                 baloreaGaizki.setVisible(true);
             }
+        } else if (klikatutakoBotoia == jokalarienDenbora && (frame == null || frame.isVisible() == false)) {
+            this.setVisible(false);
+            jokalariakIkusi();
+            
+        } else if (klikatutakoBotoia == itzuliMenura) {
+            table.setVisible(false);
+            this.setVisible(true);
+            
         } else if (klikatutakoBotoia == irten) {
             System.exit(0);
         }
     }
-
+    
 }

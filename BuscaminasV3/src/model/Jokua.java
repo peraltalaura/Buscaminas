@@ -26,6 +26,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JTable;
 import javax.swing.border.LineBorder;
 
 /**
@@ -54,9 +55,11 @@ public class Jokua extends JFrame implements MouseListener, ActionListener {
     private boolean jolastenDago;
     private JLabel jolastutakoDenbora;
     private final Timer denbora = new Timer();
-  
+    private String izena;
+
     /**
      * Jokua klasearen konstruktorea da eta Jokua sortzen du tamaina bat sartzen
+     *
      * @param tamaina jolasa sortuko den tamaina
      */
     public Jokua(int tamaina) {
@@ -76,11 +79,20 @@ public class Jokua extends JFrame implements MouseListener, ActionListener {
         initErakutsitakoak();
         hasi();
         setVisible(true);
+        setDefaultCloseOperation(EXIT_ON_CLOSE);
+    }
+
+    public String getIzena() {
+        return izena;
+    }
+
+    public void setIzena(String izena) {
+        this.izena = izena;
     }
 
     /**
-     * Jokuaren panelosoan egongo diren elementuak sortzen ditu, goiko panel bat datuekin eta
-     * beheko panel bat jolasteko
+     * Jokuaren panelosoan egongo diren elementuak sortzen ditu, goiko panel bat
+     * datuekin eta beheko panel bat jolasteko
      */
     public void hasi() {
         goikoPanela = new JPanel();
@@ -221,6 +233,7 @@ public class Jokua extends JFrame implements MouseListener, ActionListener {
 
     /**
      * botoi bat klikatzean zer gertatzen den
+     *
      * @param x botoiaren kokapena arrayean
      * @param y botoiaren kokapena arrayean
      */
@@ -238,8 +251,10 @@ public class Jokua extends JFrame implements MouseListener, ActionListener {
                 jolastenBotoia.setIcon(hilda);
                 jolastenDago = false;
                 JOptionPane.showMessageDialog(rootPane, "KUTSATU ZARA, 10 EGUN ETXEAN :'(");
+                SQLiteKudeatu gorde = new SQLiteKudeatu();
+                gorde.puntuazioaGehitu(izena,jolastutakoDenbora.getText());
                 setVisible(false);
-                Hasiera h=new Hasiera();
+                Hasiera h = new Hasiera();
                 break;
 
                 case 0:
@@ -263,7 +278,7 @@ public class Jokua extends JFrame implements MouseListener, ActionListener {
                             jolastenDago = false;
                             JOptionPane.showMessageDialog(rootPane, "ZORIONAK KALERA IRTETEN JARRAITU AHAL DUZU!!");
                             setVisible(false);
-                            Hasiera ha=new Hasiera();
+                            Hasiera ha = new Hasiera();
                             break;
                         }
 
@@ -282,7 +297,7 @@ public class Jokua extends JFrame implements MouseListener, ActionListener {
                         jolastenDago = false;
                         JOptionPane.showMessageDialog(rootPane, "ZORIONAK KALERA IRTETEN JARRAITU AHAL DUZU!!");
                         setVisible(false);
-                        Hasiera ha=new Hasiera();
+                        Hasiera ha = new Hasiera();
                         break;
                     }
                     break;
@@ -293,6 +308,7 @@ public class Jokua extends JFrame implements MouseListener, ActionListener {
 
     /**
      * eskubiko botoia, bandera jartzeko, klikatzean gertatzen dena
+     *
      * @param x botoiaren kokapena arrayean
      * @param y botoiaren kokapena arrayean
      */
@@ -318,6 +334,7 @@ public class Jokua extends JFrame implements MouseListener, ActionListener {
 
     /**
      * irabazteko bete behar den baldintza
+     *
      * @return irabazteko baldintza betetzen den ala ez
      */
     public boolean irabaziDuzu() {
@@ -343,7 +360,8 @@ public class Jokua extends JFrame implements MouseListener, ActionListener {
     }
 
     /**
-     * botoi bat klikatzen denean zer gertatzen den 
+     * botoi bat klikatzen denean zer gertatzen den
+     *
      * @param em zer botoi klikatu den jakiteko eta akzioa kontrolatzeko
      */
     @Override
@@ -382,8 +400,10 @@ public class Jokua extends JFrame implements MouseListener, ActionListener {
     public void mouseExited(MouseEvent e) {
 
     }
+
     /**
-     * botoi bat klikatzen denean zer gertatzen den 
+     * botoi bat klikatzen denean zer gertatzen den
+     *
      * @param e zer botoi klikatu den jakiteko eta akzioa kontrolatzeko
      */
     @Override

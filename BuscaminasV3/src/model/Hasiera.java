@@ -5,6 +5,7 @@
  */
 package model;
 
+import exekutagarriak.Puntuazioak;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
@@ -13,7 +14,6 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JTable;
 import javax.swing.JTextField;
 
 /**
@@ -22,7 +22,7 @@ import javax.swing.JTextField;
  * @author peralta.laura
  */
 public class Hasiera extends JFrame implements ActionListener {
-    
+
     private JPanel menua;
     private int tamaina = 8;
     private JButton hasiJolasten;
@@ -38,8 +38,6 @@ public class Hasiera extends JFrame implements ActionListener {
     private JButton izenaSartu;
     private JButton jokalarienDenbora;
     private JTextField izenaHartu;
-    private JFrame table;
-    private JButton itzuliMenura;
 
     /**
      * Hasiera konstruktorea, initPanel() eta initMenua() metodoei deitzen die
@@ -141,7 +139,7 @@ public class Hasiera extends JFrame implements ActionListener {
         frame.setAlwaysOnTop(true);
         frame.setVisible(true);
     }
-    
+
     public void izenaSartu() {
         jokalaria = new JFrame();
         jokalaria.setSize(500, 250);
@@ -165,23 +163,10 @@ public class Hasiera extends JFrame implements ActionListener {
         jokalaria.setAlwaysOnTop(true);
         jokalaria.setVisible(true);
     }
-    
-    public void jokalariakIkusi() {
-        table = new JFrame();
-        table.setSize(500, 500);
-        table.setLayout(null);
-        JTable puntuazioa = new JTable(new JokalarienPuntuazioa());
-        puntuazioa.setSize(500, 400);
-        table.add(puntuazioa);
-        itzuliMenura = new JButton("ITZULI");
-        itzuliMenura.setFont(new Font("Arial", Font.BOLD, 14));
-        itzuliMenura.addActionListener(this);
-        itzuliMenura.setSize(100, 30);
-        itzuliMenura.setLocation(200, 400);
-        table.add(itzuliMenura);
-        table.setLocationRelativeTo(null);
-        table.setAlwaysOnTop(true);
-        table.setVisible(true);
+
+    public void ikusiPuntuazioak() {
+        Puntuazioak ireki = new Puntuazioak();
+        ireki.setVisible(true);
     }
 
     /**
@@ -217,16 +202,11 @@ public class Hasiera extends JFrame implements ActionListener {
                 baloreaGaizki.setVisible(true);
             }
         } else if (klikatutakoBotoia == jokalarienDenbora && (frame == null || frame.isVisible() == false)) {
-            this.setVisible(false);
-            jokalariakIkusi();
-            
-        } else if (klikatutakoBotoia == itzuliMenura) {
-            table.setVisible(false);
-            this.setVisible(true);
-            
+                ikusiPuntuazioak();
+              
         } else if (klikatutakoBotoia == irten) {
             System.exit(0);
         }
     }
-    
+
 }

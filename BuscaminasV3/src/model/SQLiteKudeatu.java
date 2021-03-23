@@ -29,12 +29,13 @@ public class SQLiteKudeatu {
     }
 
     public static void puntuazioaGehitu(Jokalaria j) {
-        String sql = "INSERT INTO Rankinga(izena,denbora) VALUES(?,?)";
+        String sql = "INSERT INTO Rankinga(izena,denbora,laukiak) VALUES(?,?,?)";
 
         try (Connection conn = SQLiteKudeatu.connect();
                 PreparedStatement pstmt = conn.prepareStatement(sql)) {
             pstmt.setString(1, j.getIzena());
             pstmt.setInt(2, j.getDenbora());
+            pstmt.setInt(3, j.getLaukiak());
             pstmt.executeUpdate();
             System.out.println("Jokalaria gehitu da.");
         } catch (SQLException e) {

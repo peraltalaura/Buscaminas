@@ -13,10 +13,20 @@ public class Jokalaria {
 
     private String izena;
     private int denbora;
+    private int laukiak;
 
-    public Jokalaria(String izena, int denbora) {
+    public Jokalaria() {
+
+    }
+
+    public Jokalaria(String izena, int denbora, int laukiak) {
         this.izena = izena;
         this.denbora = denbora;
+        this.laukiak = laukiak;
+    }
+
+    public int getLaukiak() {
+        return laukiak;
     }
 
     public String getIzena() {
@@ -27,6 +37,10 @@ public class Jokalaria {
         return denbora;
     }
 
+    public void setLaukiak(int laukiak) {
+        this.laukiak = laukiak;
+    }
+
     public void setIzena(String izena) {
         this.izena = izena;
     }
@@ -34,9 +48,11 @@ public class Jokalaria {
     public void setDenbora(int denbora) {
         this.denbora = denbora;
     }
-    public void setJokalaria(Jokalaria j){
+
+    public void setJokalaria(Jokalaria j) {
         this.izena = j.izena;
         this.denbora = j.denbora;
+        this.laukiak = j.laukiak;
     }
 
 }

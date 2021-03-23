@@ -48,6 +48,13 @@ public class Hasiera extends JFrame implements ActionListener {
         setDefaultCloseOperation(EXIT_ON_CLOSE);
     }
 
+    public Hasiera(int tamaina) {
+        this.tamaina = tamaina;
+        initPanel();
+        initMenua();
+        setDefaultCloseOperation(EXIT_ON_CLOSE);
+    }
+
     /**
      * jokuaren menuko panela sortzen duen metodoa
      */
@@ -166,7 +173,7 @@ public class Hasiera extends JFrame implements ActionListener {
 
     public void ikusiPuntuazioak() {
         Puntuazioak ireki = new Puntuazioak();
-        ireki.setVisible(true); 
+        ireki.setVisible(true);
     }
 
     /**
@@ -202,8 +209,8 @@ public class Hasiera extends JFrame implements ActionListener {
                 baloreaGaizki.setVisible(true);
             }
         } else if (klikatutakoBotoia == jokalarienDenbora && (frame == null || frame.isVisible() == false)) {
-                ikusiPuntuazioak();
-              
+            ikusiPuntuazioak();
+
         } else if (klikatutakoBotoia == irten) {
             System.exit(0);
         }

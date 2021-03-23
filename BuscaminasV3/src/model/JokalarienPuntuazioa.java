@@ -20,7 +20,7 @@ import javax.swing.table.AbstractTableModel;
  */
 public class JokalarienPuntuazioa extends AbstractTableModel {
 
-    private final String[] ZUTABEIZENAK = {"ID", "JOKALARIA", "DENBORA"};
+    private final String[] ZUTABEIZENAK = {"ID", "JOKALARIA", "DENBORA", "TAMAINA"};
     private ArrayList<Integer> idak = new ArrayList<>();
     private ArrayList<Jokalaria> jokalariak = new ArrayList<>();
 
@@ -37,8 +37,7 @@ public class JokalarienPuntuazioa extends AbstractTableModel {
     }
 
     public JokalarienPuntuazioa() {
-        FileInputStream fin = null;
-        String sql = "SELECT izena, denbora FROM Rankinga";
+        String sql = "SELECT izena, denbora, laukiak FROM Rankinga";
         try (Connection conn = connect();
                 Statement stmt = conn.createStatement();
                 ResultSet rs = stmt.executeQuery(sql)) {
@@ -47,7 +46,8 @@ public class JokalarienPuntuazioa extends AbstractTableModel {
             while (rs.next()) {
                 i++;
                 idak.add(i);
-                jokalariak.add(new Jokalaria(rs.getString("izena"), rs.getInt("denbora")));
+
+                jokalariak.add(new Jokalaria(rs.getString("izena"), rs.getInt("denbora"), rs.getInt("laukiak")));
             }
         } catch (SQLException e) {
             System.out.println(e.getMessage());
@@ -60,7 +60,7 @@ public class JokalarienPuntuazioa extends AbstractTableModel {
         for (int n = 0; n < j.size(); n++) {
             for (int i = n + 1; i < j.size(); i++) {
                 if (j.get(n).getDenbora() > j.get(i).getDenbora()) {
-                    Jokalaria temp = new Jokalaria("",0);
+                    Jokalaria temp = new Jokalaria();
                     temp.setJokalaria(j.get(n));
                     j.get(n).setJokalaria(j.get(i));
                     j.get(i).setJokalaria(temp);
@@ -94,6 +94,8 @@ public class JokalarienPuntuazioa extends AbstractTableModel {
                 return jokalariak.get(rowIndex).getIzena();
             case 2:
                 return jokalariak.get(rowIndex).getDenbora() + " s";
+            case 3:
+                return jokalariak.get(rowIndex).getLaukiak();
         }
         return null;
     }

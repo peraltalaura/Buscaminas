@@ -16,7 +16,7 @@ import java.sql.SQLException;
  */
 public class SQLiteKudeatu {
 
-    private Connection connect() {
+    private static Connection connect() {
         // SQLite connection string
         String url = "jdbc:sqlite:db/ranking.db";
         Connection conn = null;
@@ -28,13 +28,13 @@ public class SQLiteKudeatu {
         return conn;
     }
 
-    public void puntuazioaGehitu(String izena, String denbora) {
+    public static void puntuazioaGehitu(Jokalaria j) {
         String sql = "INSERT INTO Rankinga(izena,denbora) VALUES(?,?)";
 
-        try (Connection conn = this.connect();
+        try (Connection conn = SQLiteKudeatu.connect();
                 PreparedStatement pstmt = conn.prepareStatement(sql)) {
-            pstmt.setString(1, izena);
-            pstmt.setString(2, denbora);
+            pstmt.setString(1, j.getIzena());
+            pstmt.setString(2, j.getDenbora());
             pstmt.executeUpdate();
             System.out.println("Jokalaria gehitu da.");
         } catch (SQLException e) {

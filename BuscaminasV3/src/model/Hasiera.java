@@ -166,7 +166,7 @@ public class Hasiera extends JFrame implements ActionListener {
 
     public void ikusiPuntuazioak() {
         Puntuazioak ireki = new Puntuazioak();
-        ireki.setVisible(true);
+        ireki.setVisible(true); 
     }
 
     /**

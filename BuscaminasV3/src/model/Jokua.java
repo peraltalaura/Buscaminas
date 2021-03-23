@@ -251,8 +251,6 @@ public class Jokua extends JFrame implements MouseListener, ActionListener {
                 jolastenBotoia.setIcon(hilda);
                 jolastenDago = false;
                 JOptionPane.showMessageDialog(rootPane, "KUTSATU ZARA, 10 EGUN ETXEAN :'(");
-                SQLiteKudeatu gorde = new SQLiteKudeatu();
-                gorde.puntuazioaGehitu(izena,jolastutakoDenbora.getText());
                 setVisible(false);
                 Hasiera h = new Hasiera();
                 break;
@@ -277,6 +275,7 @@ public class Jokua extends JFrame implements MouseListener, ActionListener {
                         if (irabaziDuzu()) {
                             jolastenDago = false;
                             JOptionPane.showMessageDialog(rootPane, "ZORIONAK KALERA IRTETEN JARRAITU AHAL DUZU!!");
+                            SQLiteKudeatu.puntuazioaGehitu(new Jokalaria(izena, jolastutakoDenbora.getText() + "s"));
                             setVisible(false);
                             Hasiera ha = new Hasiera();
                             break;
@@ -296,6 +295,7 @@ public class Jokua extends JFrame implements MouseListener, ActionListener {
                     if (irabaziDuzu()) {
                         jolastenDago = false;
                         JOptionPane.showMessageDialog(rootPane, "ZORIONAK KALERA IRTETEN JARRAITU AHAL DUZU!!");
+                        SQLiteKudeatu.puntuazioaGehitu(new Jokalaria(izena, jolastutakoDenbora.getText() + "s"));
                         setVisible(false);
                         Hasiera ha = new Hasiera();
                         break;

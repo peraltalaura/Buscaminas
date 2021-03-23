@@ -22,8 +22,7 @@ public class JokalarienPuntuazioa extends AbstractTableModel {
 
     private final String[] ZUTABEIZENAK = {"ID", "JOKALARIA", "DENBORA"};
     private ArrayList<Integer> idak = new ArrayList<>();
-    private ArrayList<String> izenak = new ArrayList<>();
-    private ArrayList<String> denbora = new ArrayList<>();
+    private ArrayList<Jokalaria> jokalariak = new ArrayList<>();
 
     private Connection connect() {
         // SQLite connection string
@@ -40,15 +39,18 @@ public class JokalarienPuntuazioa extends AbstractTableModel {
     public JokalarienPuntuazioa() {
         FileInputStream fin = null;
         String sql = "SELECT id, izena, denbora FROM Rankinga";
-
+        int i=1;
         try (Connection conn = connect();
                 Statement stmt = conn.createStatement();
                 ResultSet rs = stmt.executeQuery(sql)) {
+            Jokalaria j= new Jokalaria();
             // loop through the result set
             while (rs.next()) {
-                idak.add(rs.getInt("id"));
-                izenak.add(rs.getString("izena"));
-                denbora.add(rs.getString("denbora"));
+                idak.add(i);
+                j.setIzena(rs.getString("izena"));
+                j.setDenbora(rs.getString("denbora"));
+                jokalariak.add(j);
+                i++;
             }
         } catch (SQLException e) {
             System.out.println(e.getMessage());
@@ -64,7 +66,7 @@ public class JokalarienPuntuazioa extends AbstractTableModel {
 
     @Override
     public int getRowCount() {
-        return izenak.size();
+        return jokalariak.size();
     }
 
     @Override
@@ -78,9 +80,9 @@ public class JokalarienPuntuazioa extends AbstractTableModel {
             case 0:
                 return idak.get(rowIndex);
             case 1:
-                return izenak.get(rowIndex);
+                return jokalariak.get(rowIndex).getIzena();
             default:
-                return denbora.get(rowIndex);
+                return jokalariak.get(rowIndex).getDenbora();
         }
     }
  

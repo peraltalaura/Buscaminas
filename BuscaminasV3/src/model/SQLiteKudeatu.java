@@ -34,7 +34,7 @@ public class SQLiteKudeatu {
         try (Connection conn = SQLiteKudeatu.connect();
                 PreparedStatement pstmt = conn.prepareStatement(sql)) {
             pstmt.setString(1, j.getIzena());
-            pstmt.setString(2, j.getDenbora());
+            pstmt.setInt(2, j.getDenbora());
             pstmt.executeUpdate();
             System.out.println("Jokalaria gehitu da.");
         } catch (SQLException e) {

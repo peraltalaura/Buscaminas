@@ -38,23 +38,35 @@ public class JokalarienPuntuazioa extends AbstractTableModel {
 
     public JokalarienPuntuazioa() {
         FileInputStream fin = null;
-        String sql = "SELECT id, izena, denbora FROM Rankinga";
+        String sql = "SELECT izena, denbora FROM Rankinga";
         try (Connection conn = connect();
                 Statement stmt = conn.createStatement();
                 ResultSet rs = stmt.executeQuery(sql)) {
-            
+            int i = 0;
             // loop through the result set
             while (rs.next()) {
-                jokalariak.add(new Jokalaria(rs.getInt("id"),rs.getString("izena"), rs.getString("denbora")));
-//                j.setIzena(rs.getString("izena"));
-//                j.setDenbora(rs.getString("denbora"));
-//                jokalariak.add(j);
-//                i++;
+                i++;
+                idak.add(i);
+                jokalariak.add(new Jokalaria(rs.getString("izena"), rs.getInt("denbora")));
             }
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
+        jokalariOnenak(jokalariak);
 
+    }
+
+    private void jokalariOnenak(ArrayList<Jokalaria> j) {
+        for (int n = 0; n < j.size(); n++) {
+            for (int i = n + 1; i < j.size(); i++) {
+                if (j.get(n).getDenbora() > j.get(i).getDenbora()) {
+                    Jokalaria temp = new Jokalaria("",0);
+                    temp.setJokalaria(j.get(n));
+                    j.get(n).setJokalaria(j.get(i));
+                    j.get(i).setJokalaria(temp);
+                }
+            }
+        }
     }
 
     @Override
@@ -75,14 +87,14 @@ public class JokalarienPuntuazioa extends AbstractTableModel {
 
     @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
-        if (columnIndex == 0) {
-            return jokalariak.get(rowIndex).getId();
-        } else if (columnIndex == 1) {
-            return jokalariak.get(rowIndex).getIzena();
-        }else if (columnIndex == 2) {
-            return jokalariak.get(rowIndex).getDenbora();
-        }else{
-                return null;
-            }
+        switch (columnIndex) {
+            case 0:
+                return idak.get(rowIndex);
+            case 1:
+                return jokalariak.get(rowIndex).getIzena();
+            case 2:
+                return jokalariak.get(rowIndex).getDenbora() + " s";
+        }
+        return null;
     }
 }

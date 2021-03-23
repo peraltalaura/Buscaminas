@@ -10,41 +10,33 @@ package model;
  * @author peralta.laura
  */
 public class Jokalaria {
-    private int id;
-    private String izena;
-    private String denbora;
-    
-    public Jokalaria(){
-        
-    }
-    public Jokalaria(int id, String izena, String denbora){
-        this.id=id;
-        this.izena=izena;
-        this.denbora=denbora;
-    }
 
-    public int getId() {
-        return id;
+    private String izena;
+    private int denbora;
+
+    public Jokalaria(String izena, int denbora) {
+        this.izena = izena;
+        this.denbora = denbora;
     }
 
     public String getIzena() {
         return izena;
     }
 
-    public String getDenbora() {
+    public int getDenbora() {
         return denbora;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 
     public void setIzena(String izena) {
         this.izena = izena;
     }
 
-    public void setDenbora(String denbora) {
+    public void setDenbora(int denbora) {
         this.denbora = denbora;
     }
-    
+    public void setJokalaria(Jokalaria j){
+        this.izena = j.izena;
+        this.denbora = j.denbora;
+    }
+
 }

@@ -39,18 +39,17 @@ public class JokalarienPuntuazioa extends AbstractTableModel {
     public JokalarienPuntuazioa() {
         FileInputStream fin = null;
         String sql = "SELECT id, izena, denbora FROM Rankinga";
-        int i=1;
         try (Connection conn = connect();
                 Statement stmt = conn.createStatement();
                 ResultSet rs = stmt.executeQuery(sql)) {
-            Jokalaria j= new Jokalaria();
+            
             // loop through the result set
             while (rs.next()) {
-                idak.add(i);
-                j.setIzena(rs.getString("izena"));
-                j.setDenbora(rs.getString("denbora"));
-                jokalariak.add(j);
-                i++;
+                jokalariak.add(new Jokalaria(rs.getInt("id"),rs.getString("izena"), rs.getString("denbora")));
+//                j.setIzena(rs.getString("izena"));
+//                j.setDenbora(rs.getString("denbora"));
+//                jokalariak.add(j);
+//                i++;
             }
         } catch (SQLException e) {
             System.out.println(e.getMessage());
@@ -76,14 +75,14 @@ public class JokalarienPuntuazioa extends AbstractTableModel {
 
     @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
-        switch (columnIndex) {
-            case 0:
-                return idak.get(rowIndex);
-            case 1:
-                return jokalariak.get(rowIndex).getIzena();
-            default:
-                return jokalariak.get(rowIndex).getDenbora();
-        }
+        if (columnIndex == 0) {
+            return jokalariak.get(rowIndex).getId();
+        } else if (columnIndex == 1) {
+            return jokalariak.get(rowIndex).getIzena();
+        }else if (columnIndex == 2) {
+            return jokalariak.get(rowIndex).getDenbora();
+        }else{
+                return null;
+            }
     }
- 
 }

@@ -10,15 +10,21 @@ package model;
  * @author peralta.laura
  */
 public class Jokalaria {
+    private int id;
     private String izena;
     private String denbora;
     
     public Jokalaria(){
         
     }
-    public Jokalaria(String izena, String denbora){
+    public Jokalaria(int id, String izena, String denbora){
+        this.id=id;
         this.izena=izena;
         this.denbora=denbora;
+    }
+
+    public int getId() {
+        return id;
     }
 
     public String getIzena() {
@@ -27,6 +33,10 @@ public class Jokalaria {
 
     public String getDenbora() {
         return denbora;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public void setIzena(String izena) {

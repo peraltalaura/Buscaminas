@@ -13,6 +13,7 @@ import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
@@ -38,17 +39,22 @@ public class Hasiera extends JFrame implements ActionListener {
     private JButton izenaSartu;
     private JButton jokalarienDenbora;
     private JTextField izenaHartu;
+    private Puntuazioak ireki;
+
+    ;
 
     /**
      * Hasiera konstruktorea, initPanel() eta initMenua() metodoei deitzen die
      */
     public Hasiera() {
+        this.ireki = new Puntuazioak();
         initPanel();
         initMenua();
         setDefaultCloseOperation(EXIT_ON_CLOSE);
     }
 
     public Hasiera(int tamaina) {
+        this.ireki = new Puntuazioak();
         this.tamaina = tamaina;
         initPanel();
         initMenua();
@@ -171,11 +177,6 @@ public class Hasiera extends JFrame implements ActionListener {
         jokalaria.setVisible(true);
     }
 
-    public void ikusiPuntuazioak() {
-        Puntuazioak ireki = new Puntuazioak();
-        ireki.setVisible(true);
-    }
-
     /**
      * botoiei klikatzean gertatzen diren akzioak
      *
@@ -185,9 +186,12 @@ public class Hasiera extends JFrame implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         Object eventSource = e.getSource();
         JButton klikatutakoBotoia = (JButton) eventSource;
-        if (klikatutakoBotoia == hasiJolasten) {
+        if (klikatutakoBotoia == hasiJolasten && !(ireki.isVisible())) {
             izenaSartu();//Eskatu erabiltzaileari bere izena
             this.setVisible(false);
+        } else if (ireki.isVisible() && klikatutakoBotoia == hasiJolasten) {
+            JOptionPane.showMessageDialog(null, "Lehioak itxi behar dituzu!");
+
         } else if (klikatutakoBotoia == izenaSartu) {
             Jokua j = new Jokua(tamaina); //joku berri bat sortzen du emandako tamainarekin
             j.setIzena(izenaHartu.getText());
@@ -208,8 +212,8 @@ public class Hasiera extends JFrame implements ActionListener {
             } catch (NumberFormatException x) {
                 baloreaGaizki.setVisible(true);
             }
-        } else if (klikatutakoBotoia == jokalarienDenbora && (frame == null || frame.isVisible() == false)) {
-            ikusiPuntuazioak();
+        } else if (klikatutakoBotoia == jokalarienDenbora && !(ireki.isVisible())) {
+            ireki.setVisible(true);
 
         } else if (klikatutakoBotoia == irten) {
             System.exit(0);

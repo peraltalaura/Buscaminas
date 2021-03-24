@@ -36,18 +36,24 @@ public class JokalarienPuntuazioa extends AbstractTableModel {
         return conn;
     }
 
-    public JokalarienPuntuazioa() {
+    public JokalarienPuntuazioa(int tamaina) {
         String sql = "SELECT izena, denbora, laukiak FROM Rankinga";
         try (Connection conn = connect();
                 Statement stmt = conn.createStatement();
                 ResultSet rs = stmt.executeQuery(sql)) {
             int i = 0;
             // loop through the result set
-            while (rs.next()) {
-                i++;
-                idak.add(i);
+            while (i < 10 && rs.next()) {
+                if (tamaina == rs.getInt("laukiak") && tamaina != 0) {
+                    i++;
+                    idak.add(i);
+                    jokalariak.add(new Jokalaria(rs.getString("izena"), rs.getInt("denbora"), rs.getInt("laukiak")));
+                } else if (tamaina == 0) {
+                    i++;
+                    idak.add(i);
+                    jokalariak.add(new Jokalaria(rs.getString("izena"), rs.getInt("denbora"), rs.getInt("laukiak")));
+                }
 
-                jokalariak.add(new Jokalaria(rs.getString("izena"), rs.getInt("denbora"), rs.getInt("laukiak")));
             }
         } catch (SQLException e) {
             System.out.println(e.getMessage());

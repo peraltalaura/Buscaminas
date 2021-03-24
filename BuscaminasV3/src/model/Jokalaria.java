@@ -50,9 +50,9 @@ public class Jokalaria {
     }
 
     public void setJokalaria(Jokalaria j) {
-        this.izena = j.izena;
-        this.denbora = j.denbora;
-        this.laukiak = j.laukiak;
+        this.setIzena(j.izena);
+        this.setDenbora(j.denbora);
+        this.setLaukiak(j.laukiak);
     }
 
 }

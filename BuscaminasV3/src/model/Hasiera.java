@@ -190,8 +190,8 @@ public class Hasiera extends JFrame implements ActionListener {
             izenaSartu();//Eskatu erabiltzaileari bere izena
             this.setVisible(false);
         } else if (ireki.isVisible() && klikatutakoBotoia == hasiJolasten) {
-            JOptionPane.showMessageDialog(null, "Lehioak itxi behar dituzu!");
-
+            JOptionPane.showMessageDialog(menua, "Lehioak itxi behar dituzu!");
+            
         } else if (klikatutakoBotoia == izenaSartu) {
             Jokua j = new Jokua(tamaina); //joku berri bat sortzen du emandako tamainarekin
             j.setIzena(izenaHartu.getText());

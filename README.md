@@ -1,6 +1,6 @@
 # Buscaminas
 Buscaminas proiektuaren barruan hainbat elementu daude:
-  - Diagrama.dia deitzen den artxiboan jokuaren diagrama dago, joku hori osatzen duten klase, atributo, metodo eta paketeekin.
+  - Diagrama.dia deitzen den fitxategian jokuaren diagrama dago, joku hori osatzen duten klase, atributo, metodo eta paketeekin.
   - Jolasa Explikazioa.mp4 video bat da jolasa nola erabili eta funtzionatzen duen azaltzen duena.
   - BuscaminasV3 deitzen den karpetan kokatuta daude jokuaren fitxategiak.
 
